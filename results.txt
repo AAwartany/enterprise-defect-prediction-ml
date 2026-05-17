@@ -1,0 +1,45 @@
+TABLE 3 - Model Performance Comparison
+======================================================================
+                     Precision  Recall     F1  AUC-ROC
+Random Forest            0.565   0.574  0.570    0.806
+Gradient Boosting        0.568   0.539  0.553    0.806
+Logistic Regression      0.497   0.641  0.560    0.788
+SVM                      0.520   0.617  0.564    0.779
+
+Dataset size: 4,821 rows
+High-risk class: 26.49%
+Features used: 35
+
+Confusion Matrix (Random Forest):
+                  Predicted Low  Predicted High
+Actual Low-risk:            596             113
+Actual High-risk:           109             147
+
+Classification Report:
+              precision    recall  f1-score   support
+
+    Low-risk       0.85      0.84      0.84       709
+   High-risk       0.57      0.57      0.57       256
+
+    accuracy                           0.77       965
+   macro avg       0.71      0.71      0.71       965
+weighted avg       0.77      0.77      0.77       965
+
+
+Top 15 features by SHAP importance:
+                          Feature  Mean |SHAP|
+                   Defect Type_UI     0.115061
+            Bug Category_UI Issue     0.086744
+              linked_issues_count     0.064260
+           reporter_history_count     0.049414
+   Bug Category_Development Issue     0.026380
+                  defect_age_days     0.025660
+                    created_month     0.021522
+           Defect Type_Functional     0.020666
+               days_to_resolution     0.019366
+                     labels_count     0.019329
+                  created_quarter     0.018609
+Bug Category_Business Requirement     0.014016
+                      created_dow     0.013247
+                     reopen_count     0.012929
+              Defect Type_Unknown     0.009431

@@ -41,7 +41,7 @@ can be regenerated from the notebook applied to a JIRA dataset matching the docu
 
 | File | Description |
 |------|-------------|
-| `MDPI_Paper_Real_Analysis_v3_NoPriority.ipynb` | Full notebook implementing the analysis pipeline (see stages below) |
+| `defect_prediction_pipeline.ipynb` | Full notebook implementing the analysis pipeline (see stages below) |
 | `data_dictionary.md` | Description of the JIRA feature schema and derived features (no actual data values) |
 | `results.txt` | Model performance metrics, confusion matrix, and SHAP feature ranking on the held-out test set |
 | `LICENSE` | MIT License |
@@ -63,16 +63,9 @@ The notebook is organized into the following stages:
    confusion matrix on the held-out 20% test set.
 8. **Interpretability** — generates the SHAP (TreeExplainer) beeswarm plot for the best model.
 
-> **Recommended before resubmission:** rename the notebook from
-> `MDPI_Paper_Real_Analysis_v3_NoPriority.ipynb` to a neutral name (e.g.
-> `defect_prediction_pipeline.ipynb`). The current filename references a different journal, which
-> can confuse PeerJ reviewers. If you rename it, update the reference in the table above and in
-> the Usage Instructions below.
-
 ## Usage Instructions
 
-1. Open `MDPI_Paper_Real_Analysis_v3_NoPriority.ipynb` in Google Colab (or any Jupyter
-   environment).
+1. Open `defect_prediction_pipeline.ipynb` in Google Colab (or any Jupyter environment).
 2. Export your JIRA defects to CSV with the columns described in `data_dictionary.md`.
 3. Run all cells; upload your CSV when prompted.
 4. The notebook produces: the Table 3 performance metrics, the confusion matrix, and the SHAP

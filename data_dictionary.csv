@@ -1,0 +1,44 @@
+Category,Field/Name,Type or Source,Description
+Raw column (JIRA export),Key,string,"JIRA issue identifier (e.g., PROJ-1234). Used only as a unique row ID."
+Raw column (JIRA export),Severity,string,"Defect severity level. Used as the source of the prediction target. Expected values: Critical, High, Severe, Medium, Normal, Low, Minor."
+Raw column (JIRA export),Created,datetime,Timestamp when the defect was logged.
+Raw column (JIRA export),Resolved,datetime,Timestamp when the defect was resolved (may be null for open defects).
+Raw column (JIRA export),Updated,datetime,Timestamp of the most recent update.
+Raw column (JIRA export),Status,string,"Current lifecycle status (e.g., Open, In Progress, Resolved, Closed)."
+Raw column (JIRA export),Priority,string,"JIRA Priority field (high/medium/low). Deliberately excluded from the feature matrix due to label leakage with Severity, but kept in the input schema for inspection."
+Raw column (JIRA export),Component/s,string,Component(s) the defect belongs to (comma-separated if multiple).
+Raw column (JIRA export),Issue Type,string,"JIRA issue type (e.g., Bug, Defect, Incident)."
+Raw column (JIRA export),Bug Category,string,"Custom field categorizing the defect (e.g., UI Issue, Development Issue, Business Requirement)."
+Raw column (JIRA export),Defect Type,string,"Custom field describing the technical nature of the defect (e.g., UI, Functional, Data, Integration)."
+Raw column (JIRA export),Reporter,string,Person who logged the defect. Used only in aggregate form (Reporter History Count); not used as an individual identifier.
+Raw column (JIRA export),Linked Issues,string,Comma-separated list of linked issue keys; used for derived feature linked_issues_count.
+Raw column (JIRA export),IT Impacted Applications,string,Comma-separated list of impacted applications; used for derived feature impacted_apps_count.
+Raw column (JIRA export),Re-open counter,integer,Number of times the defect was re-opened after resolution.
+Raw column (JIRA export),Labels,string,Comma-separated tags.
+Raw column (JIRA export),Assignee,string,NOT used as a feature. Excluded from analysis to avoid individual performance attribution.
+Raw column (JIRA export),Developer,string,NOT used as a feature. Same reason as Assignee.
+Raw column (JIRA export),Bug Severity,string,Alternative severity field; may duplicate Severity in some JIRA configurations.
+Derived feature (pipeline-engineered),high_risk (target),Severity,"Binary label: 1 if Severity in {Critical, High, Severe}, else 0."
+Derived feature (pipeline-engineered),days_to_resolution,Resolved - Created,Defect lifecycle duration in days.
+Derived feature (pipeline-engineered),defect_age_days,Updated - Created,Days since the defect was logged.
+Derived feature (pipeline-engineered),created_month,Created,Month (1-12) the defect was logged.
+Derived feature (pipeline-engineered),created_dow,Created,"Day of week (0=Mon, 6=Sun)."
+Derived feature (pipeline-engineered),created_quarter,Created,Calendar quarter (1-4).
+Derived feature (pipeline-engineered),reopen_count,Re-open counter,Numeric count of re-openings.
+Derived feature (pipeline-engineered),linked_issues_count,Linked Issues,Count of comma-separated linked items.
+Derived feature (pipeline-engineered),has_linked_issues,Linked Issues,"Binary: 1 if non-null, 0 otherwise."
+Derived feature (pipeline-engineered),impacted_apps_count,IT Impacted Applications,Count of impacted applications.
+Derived feature (pipeline-engineered),labels_count,Labels,Count of tags.
+Derived feature (pipeline-engineered),component_high_risk_rate,Component/s x Severity,Component-level aggregate: fraction of historical defects classified high-risk.
+Derived feature (pipeline-engineered),component_total_defects,Component/s,Component-level aggregate: total defect count.
+Derived feature (pipeline-engineered),reporter_history_count,Reporter,Number of prior defects logged by the same reporter (team-level aggregate).
+Categorical encoding,Issue Type,"one-hot, drop_first=True",One-hot encoded categorical feature.
+Categorical encoding,Bug Category,"one-hot, drop_first=True",One-hot encoded categorical feature.
+Categorical encoding,Defect Type,"one-hot, drop_first=True",One-hot encoded categorical feature.
+Categorical encoding,component_grouped,"one-hot, drop_first=True",Top-15 components retained; remaining components grouped as 'Other'.
+Dataset characteristic (manuscript),Total records,"~4,821","After dropping null Severity, null Created date, and incomplete lifecycle records."
+Dataset characteristic (manuscript),High-risk class,26.49%,Share of records labeled high-risk (Critical/High/Severe).
+Dataset characteristic (manuscript),Time span,Multiple years,Multiple release cycles; specific dates withheld for confidentiality.
+Dataset characteristic (manuscript),Source,Single enterprise organization,A single multi-product enterprise IT organization.
+Dataset characteristic (manuscript),Unique components,Withheld,Withheld for confidentiality.
+Dataset characteristic (manuscript),Unique reporters,Withheld,Withheld for confidentiality.

@@ -20,11 +20,11 @@ can be regenerated from the notebook applied to a JIRA dataset matching the docu
   included in this repository. Researchers can apply the pipeline to their own JIRA export by
   matching the schema below.
 - **Schema.** The full feature schema (field names, types, and descriptions, with no actual
-  data values) is documented in `data_dictionary.md`.
+  data values) is documented in `data_dictionary.csv`.
 - **Size.** 4,821 defect records after filtering (removing rows with null Severity or null
   Created date).
 - **Time span.** Multiple years of release cycles; exact dates are withheld for confidentiality.
-- **Features.** 35 features after engineering and one-hot encoding; see `data_dictionary.md` for
+- **Features.** 35 features after engineering and one-hot encoding; see `data_dictionary.csv` for
   the raw columns and the derived features.
 - **Target variable.** `high_risk`, a binary label derived from the Severity field: 1 if
   Severity is in {Critical, High, Severe}, otherwise 0.
@@ -42,7 +42,7 @@ can be regenerated from the notebook applied to a JIRA dataset matching the docu
 | File | Description |
 |------|-------------|
 | `defect_prediction_pipeline.ipynb` | Full notebook implementing the analysis pipeline (see stages below) |
-| `data_dictionary.md` | Description of the JIRA feature schema and derived features (no actual data values) |
+| `data_dictionary.csv` | Description of the JIRA feature schema and derived features (no actual data values) |
 | `results.txt` | Model performance metrics, confusion matrix, and SHAP feature ranking on the held-out test set |
 | `LICENSE` | MIT License |
 | `.gitignore` | Standard Python/Jupyter ignore rules |
@@ -66,7 +66,7 @@ The notebook is organized into the following stages:
 ## Usage Instructions
 
 1. Open `defect_prediction_pipeline.ipynb` in Google Colab (or any Jupyter environment).
-2. Export your JIRA defects to CSV with the columns described in `data_dictionary.md`.
+2. Export your JIRA defects to CSV with the columns described in `data_dictionary.csv`.
 3. Run all cells; upload your CSV when prompted.
 4. The notebook produces: the Table 3 performance metrics, the confusion matrix, and the SHAP
    beeswarm plot.
@@ -117,7 +117,7 @@ pip install -r requirements.txt
 7. **Interpretability** — SHAP (TreeExplainer) feature-importance analysis on the best model.
 
 **Reproducibility.** The random seed is fixed (`RANDOM_STATE = 42`) throughout, so results are
-deterministic for an identical input dataset matching the schema in `data_dictionary.md`.
+deterministic for an identical input dataset matching the schema in `data_dictionary.csv`.
 
 ## Citations
 
